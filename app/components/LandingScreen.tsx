@@ -1,8 +1,23 @@
 'use client';
 
+import { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
+import Link from 'next/link';
+
+type TopEntry = { x_username: string; money: number; score: number };
 
 export default function LandingScreen({ onStart }: { onStart: () => void }) {
+  const [top3, setTop3] = useState<TopEntry[]>([]);
+
+  useEffect(() => {
+    fetch('/api/leaderboard')
+      .then((r) => r.json())
+      .then((data) => {
+        if (Array.isArray(data)) setTop3(data.slice(0, 3));
+      })
+      .catch(() => {});
+  }, []);
+
   return (
     <motion.div
       initial={{ opacity: 0 }}
@@ -56,14 +71,65 @@ export default function LandingScreen({ onStart }: { onStart: () => void }) {
         </p>
       </div>
 
-      <a
-        href="https://x.com/bevattt15"
-        target="_blank"
-        rel="noopener noreferrer"
-        className="neo-btn bg-gray-600 text-white px-4 py-2 text-xs md:text-sm fixed top-4 z-50" style={{ right: '15.5rem' }}
-      >
-        @bevattt15
-      </a>
+      {/* Top 3 sidebar */}
+      {top3.length > 0 && (
+        <div className="hidden md:block fixed left-16 top-1/2 -translate-y-1/2 z-50">
+          <div className="neo-card bg-[#F0E6FF] p-6 w-[245px] -rotate-2">
+            <div className="text-base font-bold uppercase tracking-wide mb-3 flex items-center gap-1.5">
+              <span>🏆</span> Top Players
+            </div>
+            <div className="space-y-2">
+              {top3.map((entry, i) => {
+                const medal = i === 0 ? '🥇' : i === 1 ? '🥈' : '🥉';
+                return (
+                  <div key={i} className="flex items-center gap-2">
+                    <span className="text-sm">{medal}</span>
+                    <div className="flex-1 min-w-0">
+                      <div className="text-sm font-bold truncate">@{entry.x_username}</div>
+                      <div className="text-xs text-gray-500">${entry.money.toLocaleString()}</div>
+                    </div>
+                  </div>
+                );
+              })}
+            </div>
+            <a href="/leaderboard" target="_blank" rel="noopener noreferrer" className="block text-center text-sm font-bold text-[#9B5DE5] mt-3 hover:underline">
+              View All →
+            </a>
+          </div>
+        </div>
+      )}
+
+      {/* Example result card on right */}
+      <div className="hidden md:block fixed right-16 top-[66%] -translate-y-1/2 z-40">
+        <div className="neo-card p-6 w-[250px] rotate-2 text-center" style={{ backgroundColor: '#06D6A0' }}>
+          <div className="text-[10px] font-bold uppercase tracking-widest mb-1 opacity-70">
+            In the next 5 years, you&apos;ll make
+          </div>
+          <div className="text-3xl font-bold my-2">$452,248</div>
+          <div className="text-xs font-bold mb-2">Score: 67/100</div>
+          <div className="neo-card bg-white/80 p-3 text-left">
+            <p className="font-bold text-[11px]">Solid moves. You&apos;ll be comfortable but not yacht-level.</p>
+          </div>
+          <div className="mt-3 text-[10px] font-bold text-black/40 uppercase">Example Result</div>
+        </div>
+      </div>
+
+      <div className="fixed top-4 z-50 flex gap-4" style={{ right: '15.5rem' }}>
+        <Link
+          href="/leaderboard"
+          className="neo-btn bg-[#9B5DE5] text-white px-4 py-2 text-xs md:text-sm"
+        >
+          🏆 Leaderboard
+        </Link>
+        <a
+          href="https://x.com/bevattt15"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="neo-btn bg-gray-600 text-white px-4 py-2 text-xs md:text-sm"
+        >
+          @bevattt15
+        </a>
+      </div>
     </motion.div>
   );
 }

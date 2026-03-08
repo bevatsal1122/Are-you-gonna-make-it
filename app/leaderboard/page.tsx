@@ -33,9 +33,10 @@ const tierLabels: Record<string, string> = {
 
 export default function LeaderboardPage() {
   const searchParams = useSearchParams();
+  const prefilled = searchParams.get('search') || '';
   const [entries, setEntries] = useState<LeaderboardEntry[]>([]);
   const [loading, setLoading] = useState(true);
-  const [search, setSearch] = useState(searchParams.get('search') || '');
+  const [search, setSearch] = useState(prefilled);
 
   useEffect(() => {
     const fetchLeaderboard = async () => {
@@ -114,15 +115,20 @@ export default function LeaderboardPage() {
                       )}
                     </div>
                     <div className="flex-1 min-w-0">
-                      <a
-                        href={`https://x.com/${entry.x_username}`}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className={`font-bold text-base md:text-lg hover:underline truncate block ${highlight ? 'text-white' : ''}`}
-                      >
-                        @{entry.x_username}
-                        {highlight && <span className="ml-2 text-[10px] bg-white/30 px-2 py-0.5 rounded-full uppercase align-middle">you</span>}
-                      </a>
+                      {highlight ? (
+                        <div className={`font-bold text-base md:text-lg truncate block text-white`}>
+                          @{entry.x_username} {prefilled && <span className="ml-1 text-[10px] bg-white/30 px-2 py-0.5 rounded-full align-middle">YOU</span>}
+                        </div>
+                      ) : (
+                        <a
+                          href={`https://x.com/${entry.x_username}`}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="font-bold text-base md:text-lg hover:underline truncate block"
+                        >
+                          @{entry.x_username}
+                        </a>
+                      )}
                       <span
                         className="neo-sticker text-[10px] mt-1"
                         style={{ backgroundColor: highlight ? 'rgba(255,255,255,0.3)' : (tierColors[entry.tier] || '#ccc') }}
@@ -160,29 +166,27 @@ export default function LeaderboardPage() {
                 const matchRank = matchIdx + 1;
                 const rows: React.ReactNode[] = [];
 
-                // Top 3
-                entries.slice(0, 3).forEach((e, i) => {
-                  rows.push(renderEntry(e, i + 1, i === matchIdx));
-                });
+                // Top 1
+                rows.push(renderEntry(entries[0], 1, 0 === matchIdx));
 
-                if (matchRank > 4) {
+                if (matchRank > 2) {
                   rows.push(
                     <div key="dots" className="text-center text-gray-300 text-lg tracking-widest py-1">•••</div>
                   );
                 }
 
-                // Person above (if not already shown in top 3)
-                if (matchIdx > 3 && entries[matchIdx - 1]) {
+                // Person above (if not already shown as #1)
+                if (matchIdx > 1 && entries[matchIdx - 1]) {
                   rows.push(renderEntry(entries[matchIdx - 1], matchIdx));
                 }
 
-                // Matched user (if not in top 3)
-                if (matchIdx >= 3) {
+                // Matched user (if not #1)
+                if (matchIdx >= 1) {
                   rows.push(renderEntry(entries[matchIdx], matchRank, true));
                 }
 
                 // Person below
-                if (matchIdx >= 3 && matchIdx < entries.length - 1) {
+                if (matchIdx >= 1 && matchIdx < entries.length - 1) {
                   rows.push(renderEntry(entries[matchIdx + 1], matchRank + 1));
                 }
 

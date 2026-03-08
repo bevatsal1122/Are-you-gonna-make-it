@@ -217,13 +217,6 @@ export function calculateResult(answers: Answers): {
       emoji: '🔥',
     },
     {
-      name: 'Mindset',
-      score: categoryScores.mindset.count > 0
-        ? Math.round((categoryScores.mindset.total / (categoryScores.mindset.count * 10)) * 100)
-        : 0,
-      emoji: '🧠',
-    },
-    {
       name: 'Risk Tolerance',
       score: categoryScores.risk.count > 0
         ? Math.round((categoryScores.risk.total / (categoryScores.risk.count * 10)) * 100)

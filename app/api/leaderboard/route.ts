@@ -37,14 +37,20 @@ export async function GET(req: NextRequest) {
     let currentEntry = null;
 
     if (allOrdered) {
-      const idx = allOrdered.findIndex(
-        (e: { x_username: string; money: number }) => e.x_username === username && e.money === moneyNum
+      // Match by username first, fall back to username+money
+      let idx = allOrdered.findIndex(
+        (e: { x_username: string }) => e.x_username === username
       );
       if (idx === -1) {
-        // User not found by exact match, find by rank position
+        idx = allOrdered.findIndex(
+          (e: { x_username: string; money: number }) => e.money === moneyNum
+        );
+      }
+      if (idx === -1) {
+        // User truly not found, build manually
         const rankIdx = rank - 1;
         if (rankIdx > 0 && allOrdered[rankIdx - 1]) personAbove = { ...allOrdered[rankIdx - 1], rank: rank - 1 };
-        currentEntry = { x_username: username, money: moneyNum, rank };
+        currentEntry = { x_username: username, money: moneyNum, score: 0, rank };
         if (rankIdx < allOrdered.length && allOrdered[rankIdx]) personBelow = { ...allOrdered[rankIdx], rank: rank + 1 };
       } else {
         currentEntry = { ...allOrdered[idx], rank: idx + 1 };

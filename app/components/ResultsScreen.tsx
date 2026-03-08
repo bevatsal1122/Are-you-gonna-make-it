@@ -151,20 +151,38 @@ export default function ResultsScreen({
             </motion.div>
 
             {/* Mini Leaderboard */}
-            {miniBoard && (
-              <motion.div
-                initial={{ y: 20, opacity: 0 }}
-                animate={{ y: 0, opacity: 1 }}
-                transition={{ delay: 0.6 }}
-                className="neo-card bg-white p-4 mb-6"
-              >
-                <div className="flex items-center gap-2 mb-3">
-                  <span className="text-lg">🏆</span>
-                  <span className="font-bold text-sm uppercase tracking-wide">Leaderboard</span>
-                  {totalPlayers && (
-                    <span className="text-xs text-gray-400 ml-auto">{totalPlayers} players</span>
-                  )}
+            <motion.div
+              initial={{ y: 20, opacity: 0 }}
+              animate={{ y: 0, opacity: 1 }}
+              transition={{ delay: 0.6 }}
+              className="neo-card bg-white p-4 mb-6"
+            >
+              <div className="flex items-center gap-2 mb-3">
+                <span className="text-lg">🏆</span>
+                <span className="font-bold text-sm uppercase tracking-wide">Leaderboard</span>
+                {totalPlayers && (
+                  <span className="text-xs text-gray-600 font-medium ml-auto">{totalPlayers} players</span>
+                )}
+              </div>
+
+              {!miniBoard ? (
+                <div className="space-y-1 animate-pulse">
+                  {[1, 2, 3].map((i) => (
+                    <div key={i} className="flex items-center gap-2 px-3 py-1.5 rounded-lg bg-gray-50">
+                      <div className="w-6 h-6 bg-gray-200 rounded-full shrink-0" />
+                      <div className="h-4 bg-gray-200 rounded flex-1" />
+                      <div className="h-4 w-12 bg-gray-200 rounded shrink-0" />
+                      <div className="h-4 w-16 bg-gray-200 rounded shrink-0" />
+                    </div>
+                  ))}
+                  <div className="text-center text-gray-200 text-xs tracking-widest py-0.5">•••</div>
+                  <div className="flex items-center gap-2 px-3 py-1.5 rounded-lg bg-gray-100">
+                    <div className="w-6 h-4 bg-gray-200 rounded shrink-0" />
+                    <div className="h-4 bg-gray-200 rounded flex-1" />
+                    <div className="h-4 w-16 bg-gray-200 rounded shrink-0" />
+                  </div>
                 </div>
+              ) : (
                 <div className="space-y-1">
                   {/* Top 3 */}
                   {miniBoard.top3.map((entry) => {
@@ -178,8 +196,8 @@ export default function ResultsScreen({
                         }`}
                       >
                         <span className="text-base">{medal}</span>
-                        <span className="truncate flex-1 font-medium">@{entry.x_username}{isCurrentUser && <span className="ml-1 text-[10px] bg-white/30 px-1.5 py-0.5 rounded-full uppercase">you</span>}</span>
-                        <span className={`text-xs shrink-0 mr-2 ${isCurrentUser ? 'text-white/70' : 'text-gray-400'}`}>{entry.score}/100</span>
+                        <span className="truncate flex-1 font-medium">{isCurrentUser ? <>You {entry.x_username && <span className="ml-1 text-[10px] bg-white/30 px-1.5 py-0.5 rounded-full">@{entry.x_username}</span>}</> : <>@{entry.x_username}</>}</span>
+                        <span className={`text-xs shrink-0 mr-2 ${isCurrentUser ? 'text-white/70' : 'text-gray-600'}`}>{entry.score}/100</span>
                         <span className="font-bold shrink-0">${entry.money.toLocaleString()}</span>
                       </div>
                     );
@@ -193,9 +211,9 @@ export default function ResultsScreen({
                       {/* Person above */}
                       {miniBoard.personAbove && miniBoard.personAbove.rank > 3 && (
                         <div className="flex items-center gap-2 px-3 py-1.5 rounded-lg text-sm bg-gray-50">
-                          <span className="text-xs text-gray-400 w-6 text-right">#{miniBoard.personAbove.rank}</span>
+                          <span className="text-xs text-gray-600 w-6 text-right">#{miniBoard.personAbove.rank}</span>
                           <span className="truncate flex-1 font-medium">@{miniBoard.personAbove.x_username}</span>
-                          <span className="text-xs text-gray-400 shrink-0 mr-2">{miniBoard.personAbove.score}/100</span>
+                          <span className="text-xs text-gray-600 shrink-0 mr-2">{miniBoard.personAbove.score}/100</span>
                           <span className="font-bold shrink-0">${miniBoard.personAbove.money.toLocaleString()}</span>
                         </div>
                       )}
@@ -204,7 +222,7 @@ export default function ResultsScreen({
                       {miniBoard.currentEntry && (
                         <div className="flex items-center gap-2 px-3 py-1.5 rounded-lg text-sm bg-[#9B5DE5] text-white font-bold">
                           <span className="text-xs w-6 text-right">#{miniBoard.currentEntry.rank}</span>
-                          <span className="truncate flex-1">@{miniBoard.currentEntry.x_username || xUsername}<span className="ml-1 text-[10px] bg-white/30 px-1.5 py-0.5 rounded-full uppercase">you</span></span>
+                          <span className="truncate flex-1">You {(miniBoard.currentEntry.x_username || xUsername) && <span className="ml-1 text-[10px] bg-white/30 px-1.5 py-0.5 rounded-full">@{miniBoard.currentEntry.x_username || xUsername}</span>}</span>
                           <span className="text-xs text-white/70 shrink-0 mr-2">{miniBoard.currentEntry.score}/100</span>
                           <span className="shrink-0">${miniBoard.currentEntry.money.toLocaleString()}</span>
                         </div>
@@ -213,32 +231,25 @@ export default function ResultsScreen({
                       {/* Person below */}
                       {miniBoard.personBelow && (
                         <div className="flex items-center gap-2 px-3 py-1.5 rounded-lg text-sm bg-gray-50">
-                          <span className="text-xs text-gray-400 w-6 text-right">#{miniBoard.personBelow.rank}</span>
+                          <span className="text-xs text-gray-600 w-6 text-right">#{miniBoard.personBelow.rank}</span>
                           <span className="truncate flex-1 font-medium">@{miniBoard.personBelow.x_username}</span>
-                          <span className="text-xs text-gray-400 shrink-0 mr-2">{miniBoard.personBelow.score}/100</span>
+                          <span className="text-xs text-gray-600 shrink-0 mr-2">{miniBoard.personBelow.score}/100</span>
                           <span className="font-bold shrink-0">${miniBoard.personBelow.money.toLocaleString()}</span>
                         </div>
                       )}
                     </>
                   )}
                 </div>
-              </motion.div>
-            )}
+              )}
 
-            {/* Roast */}
-            <motion.div
-              initial={{ y: 20, opacity: 0 }}
-              animate={{ y: 0, opacity: 1 }}
-              transition={{ delay: 0.7 }}
-              className="neo-card bg-[#FF6B8A] p-5 mb-6"
-            >
-              <div className="flex items-start gap-3">
-                <span className="text-3xl">🔥</span>
-                <div>
-                  <div className="font-bold uppercase text-sm mb-1">The Roast</div>
-                  <p className="font-medium text-sm md:text-base">{result.roast}</p>
-                </div>
-              </div>
+              <a
+                href={xUsername ? `/leaderboard?search=${encodeURIComponent(xUsername)}` : '/leaderboard'}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="mt-3 block text-center text-sm font-bold bg-[#9B5DE5] text-white py-2.5 rounded-lg hover:bg-[#8a4dd4] transition-colors"
+              >
+                🏆 View Full Leaderboard →
+              </a>
             </motion.div>
 
             <p className="text-xs text-gray-400 text-center mt-2">
@@ -270,6 +281,22 @@ export default function ResultsScreen({
               ))}
             </motion.div>
 
+            {/* Roast */}
+            <motion.div
+              initial={{ y: 20, opacity: 0 }}
+              animate={{ y: 0, opacity: 1 }}
+              transition={{ delay: 0.7 }}
+              className="neo-card bg-[#FF6B8A] p-5 mb-6 max-w-lg mx-auto"
+            >
+              <div className="flex items-start gap-3">
+                <span className="text-3xl">🔥</span>
+                <div>
+                  <div className="font-bold uppercase text-sm mb-1">The Roast</div>
+                  <p className="font-medium text-sm md:text-base">{result.roast}</p>
+                </div>
+              </div>
+            </motion.div>
+
             {/* Actions */}
             <div className="flex flex-col sm:flex-row gap-4 max-w-lg mx-auto">
               <button
@@ -290,16 +317,6 @@ export default function ResultsScreen({
               >
                 TRY AGAIN
               </button>
-            </div>
-
-            {/* View Leaderboard */}
-            <div className="max-w-lg mx-auto mt-4">
-              <Link
-                href={xUsername ? `/leaderboard?search=${encodeURIComponent(xUsername)}` : '/leaderboard'}
-                className="neo-btn bg-[#9B5DE5] text-white px-6 py-3 text-base md:text-lg w-full block text-center"
-              >
-                VIEW LEADERBOARD
-              </Link>
             </div>
           </div>
         </div>

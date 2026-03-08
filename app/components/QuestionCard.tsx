@@ -47,8 +47,8 @@ export default function QuestionCard({
   return (
     <div className="min-h-screen flex flex-col items-center justify-center px-4 pt-4 pb-8 relative -mt-8">
       {/* Progress */}
-      <div className="w-full max-w-xl mb-2">
-        <div className="flex justify-between items-center mb-2">
+      <div className="w-full max-w-xl mb-10 md:mb-2">
+        <div className="flex justify-between items-center mb-4 md:mb-2">
           <span className="neo-sticker bg-white text-black text-xs">
             Q{questionIndex + 1}/{totalQuestions}
           </span>
@@ -68,7 +68,7 @@ export default function QuestionCard({
       </div>
 
       {/* Previous question ghost - always reserve space */}
-      <div className="w-full max-w-xl mb-2 md:mb-3 mt-4 md:mt-8 pointer-events-none scale-[0.88]" style={{ minHeight: '50px' }}>
+      <div className="hidden md:block w-full max-w-xl mb-3 mt-8 pointer-events-none scale-[0.88]" style={{ minHeight: '68px' }}>
         {prevQ && (
           <div className="opacity-[0.3]">
             <div className="neo-card p-3 md:p-4 min-h-[60px] md:min-h-[68px] flex flex-col justify-center" style={{ backgroundColor: prevQ.color }}>
@@ -122,7 +122,7 @@ export default function QuestionCard({
       </div>
 
       {/* Next question ghost - always reserve space */}
-      <div className="w-full max-w-xl mt-2 md:mt-3 pointer-events-none scale-[0.88]" style={{ minHeight: '50px' }}>
+      <div className="hidden md:block w-full max-w-xl mt-3 pointer-events-none scale-[0.88]" style={{ minHeight: '68px' }}>
         {nextQ && (
           <div className="opacity-[0.3]">
             <div className="neo-card p-3 md:p-4 min-h-[60px] md:min-h-[68px] flex flex-col justify-center" style={{ backgroundColor: nextQ.color }}>

@@ -71,39 +71,40 @@ export default function LandingScreen({ onStart }: { onStart: () => void }) {
         </p>
 
         {/* Mobile top 3 + example result */}
-        <div className="md:hidden mt-8 flex flex-col gap-4">
+        <div className="md:hidden mt-8 flex flex-col gap-6">
           {top3.length > 0 && (
-            <div className="neo-card bg-[#E8E8E8] p-4 text-left">
-              <div className="text-xs font-bold uppercase tracking-wide mb-2 flex items-center gap-1">
+            <div className="neo-card bg-[#E8E8E8] p-5 text-left">
+              <div className="text-sm font-bold uppercase tracking-wide mb-3 flex items-center gap-1.5">
                 <span>🏆</span> Top Players
               </div>
-              <div className="space-y-1.5">
+              <div className="space-y-2.5">
                 {top3.map((entry, i) => {
                   const medal = i === 0 ? '🥇' : i === 1 ? '🥈' : '🥉';
                   return (
-                    <div key={i} className="flex items-center gap-1.5">
-                      <span className="text-xs">{medal}</span>
-                      <span className="text-xs font-bold truncate flex-1">@{entry.x_username}</span>
+                    <div key={i} className="flex items-center gap-2">
+                      <span className="text-base">{medal}</span>
+                      <span className="text-base font-bold truncate flex-1">@{entry.x_username}</span>
+                      <span className="text-sm text-gray-500">${entry.money.toLocaleString()}</span>
                     </div>
                   );
                 })}
               </div>
-              <a href="/leaderboard" target="_blank" rel="noopener noreferrer" className="block text-center text-[10px] font-bold text-[#9B5DE5] mt-2 hover:underline">
+              <a href="/leaderboard" target="_blank" rel="noopener noreferrer" className="block text-center text-sm font-bold text-[#9B5DE5] mt-3 hover:underline">
                 View All →
               </a>
             </div>
           )}
 
-          <div className="neo-card p-4 text-center" style={{ backgroundColor: '#06D6A0' }}>
-            <div className="text-[8px] font-bold uppercase tracking-widest mb-1 opacity-70">
+          <div className="neo-card p-5 text-center" style={{ backgroundColor: '#06D6A0' }}>
+            <div className="text-xs font-bold uppercase tracking-widest mb-1 opacity-70">
               In 5 years, you&apos;ll make
             </div>
-            <div className="text-xl font-bold my-1">$452,248</div>
-            <div className="text-[10px] font-bold mb-1">Score: 67/100</div>
-            <div className="neo-card bg-white/80 p-2 text-left">
-              <p className="font-bold text-[9px]">Solid moves. Not yacht-level.</p>
+            <div className="text-3xl font-bold my-2">$452,248</div>
+            <div className="text-sm font-bold mb-2">Score: 67/100</div>
+            <div className="neo-card bg-white/80 p-3 text-left">
+              <p className="font-bold text-sm">Solid moves. Not yacht-level.</p>
             </div>
-            <div className="mt-2 text-[8px] font-bold text-black/40 uppercase">Example Result</div>
+            <div className="mt-3 text-xs font-bold text-black/40 uppercase">Example Result</div>
           </div>
         </div>
       </div>
@@ -151,7 +152,7 @@ export default function LandingScreen({ onStart }: { onStart: () => void }) {
         </div>
       </div>
 
-      <div className="absolute top-6 right-3 md:top-4 md:right-[15.5rem] z-[60] flex gap-2 md:gap-4">
+      <div className="absolute top-6 right-6 md:top-4 md:right-[15.5rem] z-[60] flex gap-2 md:gap-4">
         <Link
           href="/leaderboard"
           className="neo-btn bg-[#9B5DE5] text-white px-3 py-1.5 text-[10px] md:px-4 md:py-2 md:text-sm"

@@ -28,12 +28,12 @@ export default function ProcessingScreen() {
       exit={{ opacity: 0 }}
       className="min-h-screen flex flex-col items-center justify-center px-4"
     >
-      <div className="neo-card bg-white p-10 md:p-16 text-center max-w-md w-full">
+      <div className="neo-card bg-white p-10 md:p-16 text-center max-w-md w-full h-[350px] md:h-[400px] flex flex-col items-center justify-center">
         <div className="text-6xl mb-6 animate-bounce">🔮</div>
-        <div className="text-xl md:text-2xl font-bold mb-4">
+        <div className="text-xl md:text-2xl font-bold mb-4 min-h-[2em]">
           {messages[msgIndex]}
         </div>
-        <div className="neo-progress-track mt-6">
+        <div className="neo-progress-track mt-10 w-full">
           <motion.div
             className="neo-progress-fill bg-[#06D6A0]"
             initial={{ width: '0%' }}

@@ -45,9 +45,9 @@ export default function QuestionCard({
   const nextQ = visibleIndex < totalQuestions - 1 ? questions[visibleIndex + 1] : null;
 
   return (
-    <div className="min-h-screen flex flex-col items-center justify-center px-4 py-8 relative">
+    <div className="min-h-screen flex flex-col items-center justify-center px-4 pt-4 pb-8 relative -mt-8">
       {/* Progress */}
-      <div className="w-full max-w-xl mb-2">
+      <div className={`w-full max-w-xl ${prevQ ? 'mb-2' : 'mb-10'}`}>
         <div className="flex justify-between items-center mb-2">
           <span className="neo-sticker bg-white text-black text-xs">
             Q{questionIndex + 1}/{totalQuestions}
@@ -69,8 +69,8 @@ export default function QuestionCard({
 
       {/* Previous question ghost */}
       {prevQ && (
-        <div className="w-full max-w-xl mb-3 pointer-events-none opacity-[0.3] scale-[0.88]">
-          <div className="neo-card p-3 md:p-4" style={{ backgroundColor: prevQ.color }}>
+        <div className="w-full max-w-xl mb-3 mt-8 pointer-events-none opacity-[0.3] scale-[0.88]">
+          <div className="neo-card p-3 md:p-4 min-h-[60px] md:min-h-[68px] flex flex-col justify-center" style={{ backgroundColor: prevQ.color }}>
             <div className="text-xl mb-1">{prevQ.emoji}</div>
             <h2 className="text-sm md:text-base font-bold leading-snug line-clamp-1">{prevQ.question}</h2>
           </div>
@@ -79,7 +79,7 @@ export default function QuestionCard({
 
       {/* Current question */}
       <div className="w-full max-w-xl">
-        <div className="neo-card p-6 md:p-10 mb-6" style={{ backgroundColor: currentQ.color }}>
+        <div className="neo-card p-6 md:p-10 mb-6 h-[280px] md:h-[280px] flex flex-col justify-center" style={{ backgroundColor: currentQ.color }}>
           <div className="text-5xl mb-4">{currentQ.emoji}</div>
           <h2 className="text-2xl md:text-3xl font-bold leading-snug">
             {currentQ.question}
@@ -122,7 +122,7 @@ export default function QuestionCard({
       {/* Next question ghost */}
       {nextQ && (
         <div className="w-full max-w-xl mt-3 pointer-events-none opacity-[0.3] scale-[0.88]">
-          <div className="neo-card p-3 md:p-4" style={{ backgroundColor: nextQ.color }}>
+          <div className="neo-card p-3 md:p-4 min-h-[60px] md:min-h-[68px] flex flex-col justify-center" style={{ backgroundColor: nextQ.color }}>
             <div className="text-xl mb-1">{nextQ.emoji}</div>
             <h2 className="text-sm md:text-base font-bold leading-snug line-clamp-1">{nextQ.question}</h2>
           </div>

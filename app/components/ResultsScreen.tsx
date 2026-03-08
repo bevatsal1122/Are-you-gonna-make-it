@@ -1,18 +1,70 @@
 'use client';
 
+import { useState, useEffect, useRef, useMemo } from 'react';
 import { motion } from 'framer-motion';
+import Link from 'next/link';
 import { calculateResult, type Answers } from '@/lib/questions';
 import MoneyCounter from './MoneyCounter';
 import TraitBar from './TraitBar';
 
 export default function ResultsScreen({
   answers,
+  xUsername,
   onRestart,
 }: {
   answers: Answers;
+  xUsername: string;
   onRestart: () => void;
 }) {
-  const result = calculateResult(answers);
+  // Memoize so Math.random() in calculateResult only runs once
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  const result = useMemo(() => calculateResult(answers), []);
+  const [rank, setRank] = useState<number | null>(null);
+  const [totalPlayers, setTotalPlayers] = useState<number | null>(null);
+  const [miniBoard, setMiniBoard] = useState<{
+    top3: { x_username: string; money: number; tier: string; score: number; rank: number }[];
+    personAbove: { x_username: string; money: number; score: number; rank: number } | null;
+    currentEntry: { x_username: string; money: number; score: number; rank: number } | null;
+    personBelow: { x_username: string; money: number; score: number; rank: number } | null;
+  } | null>(null);
+  const saved = useRef(false);
+
+  useEffect(() => {
+    if (saved.current) return;
+    saved.current = true;
+
+    const saveAndFetchRank = async () => {
+      // Save to leaderboard if username provided
+      if (xUsername) {
+        await fetch('/api/leaderboard', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            x_username: xUsername,
+            score: result.score,
+            money: result.money,
+            tier: result.tier,
+          }),
+        });
+      }
+
+      // Fetch rank + mini leaderboard
+      const res = await fetch(`/api/leaderboard?money=${result.money}&username=${encodeURIComponent(xUsername)}`);
+      const data = await res.json();
+      if (data.rank) setRank(data.rank);
+      if (data.total) setTotalPlayers(data.total);
+      if (data.top3) {
+        setMiniBoard({
+          top3: data.top3,
+          personAbove: data.personAbove,
+          currentEntry: data.currentEntry,
+          personBelow: data.personBelow,
+        });
+      }
+    };
+
+    saveAndFetchRank();
+  }, [xUsername, result.score, result.money, result.tier]);
 
   const tierColors: Record<string, string> = {
     broke: '#FF6B8A',
@@ -81,7 +133,7 @@ export default function ResultsScreen({
               initial={{ y: 30, opacity: 0 }}
               animate={{ y: 0, opacity: 1 }}
               transition={{ delay: 0.4 }}
-              className="neo-card animate-pulse-glow p-10 md:p-12 text-center mb-6"
+              className="neo-card animate-pulse-glow p-6 md:p-8 text-center mb-6"
               style={{ backgroundColor: tierColors[result.tier] }}
             >
               <div className="text-sm font-bold uppercase tracking-widest mb-2">
@@ -98,12 +150,87 @@ export default function ResultsScreen({
               </div>
             </motion.div>
 
+            {/* Mini Leaderboard */}
+            {miniBoard && (
+              <motion.div
+                initial={{ y: 20, opacity: 0 }}
+                animate={{ y: 0, opacity: 1 }}
+                transition={{ delay: 0.6 }}
+                className="neo-card bg-white p-4 mb-6"
+              >
+                <div className="flex items-center gap-2 mb-3">
+                  <span className="text-lg">🏆</span>
+                  <span className="font-bold text-sm uppercase tracking-wide">Leaderboard</span>
+                  {totalPlayers && (
+                    <span className="text-xs text-gray-400 ml-auto">{totalPlayers} players</span>
+                  )}
+                </div>
+                <div className="space-y-1">
+                  {/* Top 3 */}
+                  {miniBoard.top3.map((entry) => {
+                    const medal = entry.rank === 1 ? '🥇' : entry.rank === 2 ? '🥈' : '🥉';
+                    const isCurrentUser = entry.x_username === xUsername;
+                    return (
+                      <div
+                        key={`top-${entry.rank}`}
+                        className={`flex items-center gap-2 px-3 py-1.5 rounded-lg text-sm ${
+                          isCurrentUser ? 'bg-[#9B5DE5] text-white font-bold' : 'bg-gray-50'
+                        }`}
+                      >
+                        <span className="text-base">{medal}</span>
+                        <span className="truncate flex-1 font-medium">@{entry.x_username}{isCurrentUser && <span className="ml-1 text-[10px] bg-white/30 px-1.5 py-0.5 rounded-full uppercase">you</span>}</span>
+                        <span className={`text-xs shrink-0 mr-2 ${isCurrentUser ? 'text-white/70' : 'text-gray-400'}`}>{entry.score}/100</span>
+                        <span className="font-bold shrink-0">${entry.money.toLocaleString()}</span>
+                      </div>
+                    );
+                  })}
+
+                  {/* Dots separator - only show if user is not in top 3 */}
+                  {rank !== null && rank > 3 && (
+                    <>
+                      <div className="text-center text-gray-300 text-xs tracking-widest py-0.5">•••</div>
+
+                      {/* Person above */}
+                      {miniBoard.personAbove && miniBoard.personAbove.rank > 3 && (
+                        <div className="flex items-center gap-2 px-3 py-1.5 rounded-lg text-sm bg-gray-50">
+                          <span className="text-xs text-gray-400 w-6 text-right">#{miniBoard.personAbove.rank}</span>
+                          <span className="truncate flex-1 font-medium">@{miniBoard.personAbove.x_username}</span>
+                          <span className="text-xs text-gray-400 shrink-0 mr-2">{miniBoard.personAbove.score}/100</span>
+                          <span className="font-bold shrink-0">${miniBoard.personAbove.money.toLocaleString()}</span>
+                        </div>
+                      )}
+
+                      {/* Current user */}
+                      {miniBoard.currentEntry && (
+                        <div className="flex items-center gap-2 px-3 py-1.5 rounded-lg text-sm bg-[#9B5DE5] text-white font-bold">
+                          <span className="text-xs w-6 text-right">#{miniBoard.currentEntry.rank}</span>
+                          <span className="truncate flex-1">@{miniBoard.currentEntry.x_username || xUsername}<span className="ml-1 text-[10px] bg-white/30 px-1.5 py-0.5 rounded-full uppercase">you</span></span>
+                          <span className="text-xs text-white/70 shrink-0 mr-2">{miniBoard.currentEntry.score}/100</span>
+                          <span className="shrink-0">${miniBoard.currentEntry.money.toLocaleString()}</span>
+                        </div>
+                      )}
+
+                      {/* Person below */}
+                      {miniBoard.personBelow && (
+                        <div className="flex items-center gap-2 px-3 py-1.5 rounded-lg text-sm bg-gray-50">
+                          <span className="text-xs text-gray-400 w-6 text-right">#{miniBoard.personBelow.rank}</span>
+                          <span className="truncate flex-1 font-medium">@{miniBoard.personBelow.x_username}</span>
+                          <span className="text-xs text-gray-400 shrink-0 mr-2">{miniBoard.personBelow.score}/100</span>
+                          <span className="font-bold shrink-0">${miniBoard.personBelow.money.toLocaleString()}</span>
+                        </div>
+                      )}
+                    </>
+                  )}
+                </div>
+              </motion.div>
+            )}
+
             {/* Roast */}
             <motion.div
               initial={{ y: 20, opacity: 0 }}
               animate={{ y: 0, opacity: 1 }}
               transition={{ delay: 0.7 }}
-              className="neo-card bg-[#FF6B8A] p-8 mb-6"
+              className="neo-card bg-[#FF6B8A] p-5 mb-6"
             >
               <div className="flex items-start gap-3">
                 <span className="text-3xl">🔥</span>
@@ -129,7 +256,7 @@ export default function ResultsScreen({
               initial={{ y: 20, opacity: 0 }}
               animate={{ y: 0, opacity: 1 }}
               transition={{ delay: 0.9 }}
-              className="neo-card bg-white p-8 md:p-10 mb-6 max-w-lg mx-auto"
+              className="neo-card bg-white p-6 md:p-8 mb-6 max-w-lg mx-auto"
             >
               <h3 className="text-xl font-bold mb-6 uppercase">Your DNA Breakdown</h3>
               {result.traits.map((trait, i) => (
@@ -147,7 +274,8 @@ export default function ResultsScreen({
             <div className="flex flex-col sm:flex-row gap-4 max-w-lg mx-auto">
               <button
                 onClick={() => {
-                  const text = `I scored ${result.score}/100 on "Are You Gonna Make It?" 💰\n\nPredicted earnings: $${result.money.toLocaleString()} in 5 years\n\nVerdict: ${tierLabels[result.tier]}\n\nThink you can beat me? 👇`;
+                  const rankText = rank ? `\n\nRanked #${rank} out of ${totalPlayers} players 🏆` : '';
+                  const text = `I scored ${result.score}/100 on "Are You Gonna Make It?" 💰\n\nPredicted earnings: $${result.money.toLocaleString()} in 5 years\n\nVerdict: ${tierLabels[result.tier]}${rankText}\n\nThink you can beat me? 👇`;
                   const url = window.location.href;
                   const tweetUrl = `https://x.com/intent/tweet?text=${encodeURIComponent(text)}&url=${encodeURIComponent(url)}`;
                   window.open(tweetUrl, '_blank');
@@ -162,6 +290,16 @@ export default function ResultsScreen({
               >
                 TRY AGAIN
               </button>
+            </div>
+
+            {/* View Leaderboard */}
+            <div className="max-w-lg mx-auto mt-4">
+              <Link
+                href={xUsername ? `/leaderboard?search=${encodeURIComponent(xUsername)}` : '/leaderboard'}
+                className="neo-btn bg-[#9B5DE5] text-white px-6 py-3 text-base md:text-lg w-full block text-center"
+              >
+                VIEW LEADERBOARD
+              </Link>
             </div>
           </div>
         </div>

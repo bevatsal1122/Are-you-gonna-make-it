@@ -245,36 +245,110 @@ export function calculateResult(answers: Answers): {
   let prediction: string;
   let roast: string;
 
-  if (normalizedScore >= 85) {
+  const pick = (arr: string[]) => arr[Math.floor(Math.random() * arr.length)];
+
+  if (normalizedScore >= 90) {
     money = 2500000 + Math.floor(Math.random() * 2500000);
     tier = 'mega';
-    prediction = "You're built different. Generational wealth incoming.";
-    roast = "You chose violence in every answer. Your therapist is gonna be busy but your accountant will be busier.";
+    prediction = pick([
+      "You're built different. Generational wealth incoming.",
+      "The universe owes you a bag and it's about to pay up.",
+      "You don't chase money. Money chases you.",
+      "You're not just gonna make it — you're gonna own the game.",
+      "Retirement at 35? Yeah, that's realistic for you.",
+    ]);
+    roast = pick([
+      "You chose violence in every answer. Your therapist is gonna be busy but your accountant will be busier.",
+      "You'd sell your grandma's cookies for equity. Respect, but also... yikes.",
+      "Congrats, you have the emotional range of a spreadsheet. But a very profitable spreadsheet.",
+      "You're basically a capitalism speedrun. Touch grass occasionally.",
+      "Your friends are scared of you and your enemies are inspired. That's the vibe.",
+    ]);
   } else if (normalizedScore >= 72) {
     money = 800000 + Math.floor(Math.random() * 700000);
     tier = 'rich';
-    prediction = "You've got what it takes. Big bag energy.";
-    roast = "You're hungry but you still have a heart. That's either your superpower or your weakness.";
-  } else if (normalizedScore >= 58) {
+    prediction = pick([
+      "You've got what it takes. Big bag energy.",
+      "You're on a collision course with serious wealth.",
+      "Smart moves, sharp instincts. The bag is coming.",
+      "You've got the recipe. Now just don't burn the kitchen down.",
+      "Top 10% energy. You're gonna eat well.",
+    ]);
+    roast = pick([
+      "You're hungry but you still have a heart. That's either your superpower or your weakness.",
+      "You almost went full shark mode but chickened out on a few. Still solid though.",
+      "You've got the ambition of a wolf and the occasional softness of a golden retriever.",
+      "You'll be rich but you'll still cry at movies. A balanced king/queen.",
+      "One or two more ruthless answers and you'd be in mega territory. So close.",
+    ]);
+  } else if (normalizedScore >= 63) {
     money = 300000 + Math.floor(Math.random() * 200000);
     tier = 'wealthy';
-    prediction = "Solid moves. You'll be comfortable but not yacht-level.";
-    roast = "You play it smart but sometimes too safe. Fortune favors the bold, and you're more like medium-bold.";
+    prediction = pick([
+      "Solid moves. You'll be comfortable but not yacht-level.",
+      "You're building something real. Steady wins the race.",
+      "Upper middle class with a side of ambition. Not bad at all.",
+      "You won't be broke, but you won't be on Forbes either. And that's okay.",
+      "Comfortable life, nice vacations, zero financial panic. You'll take it.",
+    ]);
+    roast = pick([
+      "You play it smart but sometimes too safe. Fortune favors the bold, and you're more like medium-bold.",
+      "You're the human equivalent of a diversified portfolio. Stable but not exciting.",
+      "You hedged every bet. Safe? Yes. Legendary? Nah.",
+      "You'll never go broke but you'll also never have a Wikipedia page.",
+      "Your risk tolerance is like mild salsa — technically spicy but nobody's sweating.",
+    ]);
   } else if (normalizedScore >= 42) {
     money = 85000 + Math.floor(Math.random() * 65000);
     tier = 'comfortable';
-    prediction = "You'll do okay. Not broke, not rich. The eternal middle.";
-    roast = "You picked the safe option too many times. Your comfort zone has a comfort zone.";
+    prediction = pick([
+      "You'll do okay. Not broke, not rich. The eternal middle.",
+      "Average is not an insult. It's a lifestyle. And it's yours.",
+      "You'll pay your bills on time and that's more than most.",
+      "Middle of the pack. You'll survive every recession but never pop champagne.",
+      "Steady income, steady life. No fireworks, no fires.",
+    ]);
+    roast = pick([
+      "You picked the safe option too many times. Your comfort zone has a comfort zone.",
+      "You're the person who orders the same thing at every restaurant. Reliable but boring.",
+      "You'll never be broke but you'll also never know what first class feels like.",
+      "Your financial strategy is basically 'hope for the best.' Bold in its own way.",
+      "You treat risk like it's a ghost story — fun to hear about but you'd never go near it.",
+    ]);
   } else if (normalizedScore >= 25) {
     money = 35000 + Math.floor(Math.random() * 25000);
     tier = 'surviving';
-    prediction = "You're surviving, not thriving. Might wanna rethink some things.";
-    roast = "You chose love, sleep, and safety over money every time. Cute. Enjoy your roommates.";
+    prediction = pick([
+      "You're surviving, not thriving. Might wanna rethink some things.",
+      "You'll keep the lights on. Barely. But you'll keep them on.",
+      "Ramen budget with champagne dreams. Something's gotta give.",
+      "You're one bad month away from a GoFundMe. Let's fix that.",
+      "Paycheck to paycheck with a positive attitude. Admirable but concerning.",
+    ]);
+    roast = pick([
+      "You chose love, sleep, and safety over money every time. Cute. Enjoy your roommates.",
+      "You have the financial instincts of a golden retriever chasing a butterfly.",
+      "You said 'money isn't everything' and your bank account took it personally.",
+      "At this rate your retirement plan is hoping your kids are successful.",
+      "You're allergic to risk and it shows. Your savings account is begging for help.",
+    ]);
   } else {
     money = 8000 + Math.floor(Math.random() * 12000);
     tier = 'broke';
-    prediction = "NGL... you might not make it. But there's still time.";
-    roast = "You literally chose every soft option. The grind chose you and you ghosted it.";
+    prediction = pick([
+      "NGL... you might not make it. But there's still time.",
+      "You're speedrunning poverty. Impressive in a terrifying way.",
+      "Financial ruin any% world record attempt detected.",
+      "The universe tried to help you and you said 'nah I'm good.'",
+      "There's still hope. Probably. Maybe. We'll see.",
+    ]);
+    roast = pick([
+      "You literally chose every soft option. The grind chose you and you ghosted it.",
+      "Your financial future looks like a horror movie and you're the person who goes into the basement.",
+      "You'd rather be liked than paid. Congrats, you're broke AND popular.",
+      "You chose vibes over money every single time. At least you'll be happy... right?",
+      "If avoiding money was a sport, you'd be an Olympic gold medalist.",
+    ]);
   }
 
   return { score: normalizedScore, prediction, money, tier, traits, roast };

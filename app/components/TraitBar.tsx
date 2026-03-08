@@ -11,12 +11,12 @@ export default function TraitBar({ name, score, emoji, delay }: { name: string; 
       className="mb-4"
     >
       <div className="flex justify-between items-center mb-1">
-        <span className="font-bold text-sm">
+        <span className="font-bold text-sm md:text-base">
           {emoji} {name}
         </span>
-        <span className="font-bold text-sm">{score}%</span>
+        <span className="font-bold text-sm md:text-base">{score}%</span>
       </div>
-      <div className="neo-progress-track h-5">
+      <div className="neo-progress-track h-6">
         <motion.div
           className="neo-progress-fill"
           style={{

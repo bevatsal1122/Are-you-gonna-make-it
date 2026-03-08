@@ -37,14 +37,7 @@ export default function QuestionCard({
     if (selected || transitioning) return;
     setSelected(answer);
     pendingAnswer.current = answer;
-
-    setTimeout(() => {
-      setTransitioning(true);
-    }, 80);
-
-    setTimeout(() => {
-      onAnswer(answer);
-    }, 450);
+    onAnswer(answer);
   };
 
   const prevQ = visibleIndex > 0 ? questions[visibleIndex - 1] : null;
@@ -76,7 +69,7 @@ export default function QuestionCard({
 
       {/* Previous question ghost */}
       {prevQ && (
-        <div className="w-full max-w-xl mb-3 pointer-events-none opacity-[0.15] scale-[0.88]">
+        <div className="w-full max-w-xl mb-3 pointer-events-none opacity-[0.3] scale-[0.88]">
           <div className="neo-card p-3 md:p-4" style={{ backgroundColor: prevQ.color }}>
             <div className="text-xl mb-1">{prevQ.emoji}</div>
             <h2 className="text-sm md:text-base font-bold leading-snug line-clamp-1">{prevQ.question}</h2>
@@ -128,7 +121,7 @@ export default function QuestionCard({
 
       {/* Next question ghost */}
       {nextQ && (
-        <div className="w-full max-w-xl mt-3 pointer-events-none opacity-[0.15] scale-[0.88]">
+        <div className="w-full max-w-xl mt-3 pointer-events-none opacity-[0.3] scale-[0.88]">
           <div className="neo-card p-3 md:p-4" style={{ backgroundColor: nextQ.color }}>
             <div className="text-xl mb-1">{nextQ.emoji}</div>
             <h2 className="text-sm md:text-base font-bold leading-snug line-clamp-1">{nextQ.question}</h2>

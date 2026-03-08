@@ -68,7 +68,7 @@ export default function QuestionCard({
       </div>
 
       {/* Previous question ghost - always reserve space */}
-      <div className="w-full max-w-xl mb-3 mt-8 pointer-events-none scale-[0.88]" style={{ minHeight: '68px' }}>
+      <div className="w-full max-w-xl mb-2 md:mb-3 mt-4 md:mt-8 pointer-events-none scale-[0.88]" style={{ minHeight: '50px' }}>
         {prevQ && (
           <div className="opacity-[0.3]">
             <div className="neo-card p-3 md:p-4 min-h-[60px] md:min-h-[68px] flex flex-col justify-center" style={{ backgroundColor: prevQ.color }}>
@@ -81,9 +81,9 @@ export default function QuestionCard({
 
       {/* Current question */}
       <div className="w-full max-w-xl">
-        <div className="neo-card p-6 md:p-10 mb-6 h-[260px] md:h-[260px] flex flex-col justify-center" style={{ backgroundColor: currentQ.color }}>
-          <div className="text-5xl mb-4">{currentQ.emoji}</div>
-          <h2 className="text-2xl md:text-3xl font-bold leading-snug">
+        <div className="neo-card p-4 md:p-10 mb-4 md:mb-6 h-[200px] md:h-[260px] flex flex-col justify-center" style={{ backgroundColor: currentQ.color }}>
+          <div className="text-3xl md:text-5xl mb-2 md:mb-4">{currentQ.emoji}</div>
+          <h2 className="text-lg md:text-3xl font-bold leading-snug">
             {currentQ.question}
           </h2>
         </div>
@@ -92,7 +92,7 @@ export default function QuestionCard({
           <button
             onClick={() => handleSelect('A')}
             disabled={!!selected}
-            className={`neo-choice p-4 md:p-5 text-left h-[105px] md:h-[115px] flex flex-col justify-center ${
+            className={`neo-choice p-4 md:p-5 text-left h-[80px] md:h-[115px] flex flex-col justify-center ${
               selected === 'A'
                 ? 'selected bg-[#FFD166]'
                 : selected === 'B'
@@ -100,14 +100,14 @@ export default function QuestionCard({
                 : 'bg-white hover:bg-[#FFF3CC]'
             }`}
           >
-            <div className="text-2xl mb-1">{currentQ.optionA.emoji}</div>
-            <div className="text-[17px] font-bold">{currentQ.optionA.text}</div>
+            <div className="text-xl md:text-2xl mb-1">{currentQ.optionA.emoji}</div>
+            <div className="text-sm md:text-[17px] font-bold">{currentQ.optionA.text}</div>
           </button>
 
           <button
             onClick={() => handleSelect('B')}
             disabled={!!selected}
-            className={`neo-choice p-4 md:p-5 text-left h-[105px] md:h-[115px] flex flex-col justify-center ${
+            className={`neo-choice p-4 md:p-5 text-left h-[80px] md:h-[115px] flex flex-col justify-center ${
               selected === 'B'
                 ? 'selected bg-[#FFD166]'
                 : selected === 'A'
@@ -115,14 +115,14 @@ export default function QuestionCard({
                 : 'bg-white hover:bg-[#FFF3CC]'
             }`}
           >
-            <div className="text-2xl mb-1">{currentQ.optionB.emoji}</div>
-            <div className="text-[17px] font-bold">{currentQ.optionB.text}</div>
+            <div className="text-xl md:text-2xl mb-1">{currentQ.optionB.emoji}</div>
+            <div className="text-sm md:text-[17px] font-bold">{currentQ.optionB.text}</div>
           </button>
         </div>
       </div>
 
       {/* Next question ghost - always reserve space */}
-      <div className="w-full max-w-xl mt-3 pointer-events-none scale-[0.88]" style={{ minHeight: '68px' }}>
+      <div className="w-full max-w-xl mt-2 md:mt-3 pointer-events-none scale-[0.88]" style={{ minHeight: '50px' }}>
         {nextQ && (
           <div className="opacity-[0.3]">
             <div className="neo-card p-3 md:p-4 min-h-[60px] md:min-h-[68px] flex flex-col justify-center" style={{ backgroundColor: nextQ.color }}>

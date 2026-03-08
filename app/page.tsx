@@ -297,17 +297,18 @@ function ResultsScreen({
     >
       {/* Money falling bg */}
       <div className="fixed inset-0 pointer-events-none overflow-hidden z-0">
-        {Array.from({ length: 15 }).map((_, i) => (
+        {Array.from({ length: 40 }).map((_, i) => (
           <div
             key={i}
-            className="absolute text-3xl animate-fall"
+            className="absolute animate-fall"
             style={{
               left: `${Math.random() * 100}%`,
-              ['--delay' as string]: `${Math.random() * 5}s`,
-              ['--duration' as string]: `${3 + Math.random() * 4}s`,
+              fontSize: `${1.5 + Math.random() * 2}rem`,
+              ['--delay' as string]: `${Math.random() * 6}s`,
+              ['--duration' as string]: `${2.5 + Math.random() * 4}s`,
             }}
           >
-            {['💵', '💰', '🤑', '💸', '💎'][i % 5]}
+            {['💵', '💰', '🤑', '💸', '💎', '🏆', '👑', '🚀', '🔥', '⭐', '💲', '🪙', '💳', '📈', '🥇'][i % 15]}
           </div>
         ))}
       </div>

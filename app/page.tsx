@@ -54,10 +54,19 @@ function LandingScreen({ onStart }: { onStart: () => void }) {
           LET&apos;S FIND OUT →
         </button>
 
-        <p className="mt-6 text-sm text-gray-500 font-medium">
+        <p className="mt-6 text-xs md:text-sm text-gray-500 font-medium">
           Takes 2 minutes. Results may hurt your feelings.
         </p>
       </div>
+
+      <a
+        href="https://x.com/bevattt15"
+        target="_blank"
+        rel="noopener noreferrer"
+        className="neo-btn bg-gray-600 text-white px-4 py-2 text-xs md:text-sm fixed top-4 z-50" style={{ right: '15.5rem' }}
+      >
+        @bevattt15
+      </a>
     </motion.div>
   );
 }
@@ -297,14 +306,14 @@ function ResultsScreen({
     >
       {/* Money falling bg */}
       <div className="fixed inset-0 pointer-events-none overflow-hidden z-0">
-        {Array.from({ length: 40 }).map((_, i) => (
+        {Array.from({ length: 32 }).map((_, i) => (
           <div
             key={i}
             className="absolute animate-fall"
             style={{
               left: `${Math.random() * 100}%`,
-              fontSize: `${1.5 + Math.random() * 2}rem`,
-              ['--delay' as string]: `${Math.random() * 6}s`,
+              fontSize: `${1 + Math.random() * 1.2}rem`,
+              ['--offset' as string]: `${Math.random() * 6}s`,
               ['--duration' as string]: `${2.5 + Math.random() * 4}s`,
             }}
           >
@@ -322,7 +331,7 @@ function ResultsScreen({
           className="text-center mb-6"
         >
           <span
-            className="neo-sticker text-lg md:text-xl px-6 py-2"
+            className="neo-sticker text-2xl md:text-4xl px-8 py-4"
             style={{ backgroundColor: tierColors[result.tier] }}
           >
             {tierLabels[result.tier]}
@@ -396,17 +405,14 @@ function ResultsScreen({
           </button>
           <button
             onClick={() => {
-              const text = `I scored ${result.score}/100 on "Are You Gonna Make It?" 💰\n\nPredicted earnings: $${result.money.toLocaleString()} in 5 years\n\nVerdict: ${tierLabels[result.tier]}`;
-              if (navigator.share) {
-                navigator.share({ title: 'Are You Gonna Make It?', text });
-              } else {
-                navigator.clipboard.writeText(text);
-                alert('Copied to clipboard!');
-              }
+              const text = `I scored ${result.score}/100 on "Are You Gonna Make It?" 💰\n\nPredicted earnings: $${result.money.toLocaleString()} in 5 years\n\nVerdict: ${tierLabels[result.tier]}\n\nThink you can beat me? 👇`;
+              const url = window.location.href;
+              const tweetUrl = `https://x.com/intent/tweet?text=${encodeURIComponent(text)}&url=${encodeURIComponent(url)}`;
+              window.open(tweetUrl, '_blank');
             }}
             className="neo-btn bg-[#00BBF9] text-black px-8 py-4 text-lg flex-1"
           >
-            SHARE RESULTS
+            SHARE ON X
           </button>
         </div>
       </div>

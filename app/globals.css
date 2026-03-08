@@ -168,7 +168,8 @@
 }
 
 .animate-fall {
-  animation: fall var(--duration, 3s) linear var(--delay, 0s) infinite;
+  animation: fall var(--duration, 3s) linear infinite;
+  animation-delay: calc(-1 * var(--offset, 0s));
 }
 
 /* Counter animation */

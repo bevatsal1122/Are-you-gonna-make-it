@@ -74,7 +74,7 @@ export default function LandingScreen({ onStart }: { onStart: () => void }) {
       {/* Top 3 sidebar */}
       {top3.length > 0 && (
         <div className="hidden md:block fixed left-16 top-1/2 -translate-y-1/2 z-50">
-          <div className="neo-card bg-[#F0E6FF] p-6 w-[245px] -rotate-2">
+          <div className="neo-card bg-[#E8E8E8] p-6 w-[245px] -rotate-2">
             <div className="text-base font-bold uppercase tracking-wide mb-3 flex items-center gap-1.5">
               <span>🏆</span> Top Players
             </div>

@@ -196,7 +196,10 @@ export default function ResultsScreen({
                         }`}
                       >
                         <span className="text-base">{medal}</span>
-                        <span className="truncate flex-1 font-medium">{isCurrentUser ? <>You {entry.x_username && <span className="ml-1 text-[10px] bg-white/30 px-1.5 py-0.5 rounded-full">@{entry.x_username}</span>}</> : <>@{entry.x_username}</>}</span>
+                        <a href={`https://x.com/${entry.x_username}`} target="_blank" rel="noopener noreferrer" className="truncate flex-1 font-medium flex items-center gap-1 hover:underline">
+                          {isCurrentUser ? <>You {entry.x_username && <span className="ml-1 text-[10px] bg-white/30 px-1.5 py-0.5 rounded-full">@{entry.x_username}</span>}</> : <>@{entry.x_username}</>}
+                          <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="currentColor" className="shrink-0"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
+                        </a>
                         <span className={`text-xs shrink-0 mr-2 ${isCurrentUser ? 'text-white/70' : 'text-gray-600'}`}>{entry.score}/100</span>
                         <span className="font-bold shrink-0">${entry.money.toLocaleString()}</span>
                       </div>
@@ -212,7 +215,10 @@ export default function ResultsScreen({
                       {miniBoard.personAbove && miniBoard.personAbove.rank > 3 && (
                         <div className="flex items-center gap-2 px-3 py-1.5 rounded-lg text-sm bg-gray-50">
                           <span className="text-xs text-gray-600 w-6 text-right">#{miniBoard.personAbove.rank}</span>
-                          <span className="truncate flex-1 font-medium">@{miniBoard.personAbove.x_username}</span>
+                          <a href={`https://x.com/${miniBoard.personAbove.x_username}`} target="_blank" rel="noopener noreferrer" className="truncate flex-1 font-medium flex items-center gap-1 hover:underline">
+                            @{miniBoard.personAbove.x_username}
+                            <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="currentColor" className="shrink-0"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
+                          </a>
                           <span className="text-xs text-gray-600 shrink-0 mr-2">{miniBoard.personAbove.score}/100</span>
                           <span className="font-bold shrink-0">${miniBoard.personAbove.money.toLocaleString()}</span>
                         </div>
@@ -222,7 +228,10 @@ export default function ResultsScreen({
                       {miniBoard.currentEntry && (
                         <div className="flex items-center gap-2 px-3 py-1.5 rounded-lg text-sm bg-[#9B5DE5] text-white font-bold">
                           <span className="text-xs w-6 text-right">#{miniBoard.currentEntry.rank}</span>
-                          <span className="truncate flex-1">You {(miniBoard.currentEntry.x_username || xUsername) && <span className="ml-1 text-[10px] bg-white/30 px-1.5 py-0.5 rounded-full">@{miniBoard.currentEntry.x_username || xUsername}</span>}</span>
+                          <a href={`https://x.com/${miniBoard.currentEntry.x_username || xUsername}`} target="_blank" rel="noopener noreferrer" className="truncate flex-1 flex items-center gap-1 hover:underline">
+                            You {(miniBoard.currentEntry.x_username || xUsername) && <span className="ml-1 text-[10px] bg-white/30 px-1.5 py-0.5 rounded-full">@{miniBoard.currentEntry.x_username || xUsername}</span>}
+                            <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="currentColor" className="shrink-0"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
+                          </a>
                           <span className="text-xs text-white/70 shrink-0 mr-2">{miniBoard.currentEntry.score}/100</span>
                           <span className="shrink-0">${miniBoard.currentEntry.money.toLocaleString()}</span>
                         </div>
@@ -232,7 +241,10 @@ export default function ResultsScreen({
                       {miniBoard.personBelow && (
                         <div className="flex items-center gap-2 px-3 py-1.5 rounded-lg text-sm bg-gray-50">
                           <span className="text-xs text-gray-600 w-6 text-right">#{miniBoard.personBelow.rank}</span>
-                          <span className="truncate flex-1 font-medium">@{miniBoard.personBelow.x_username}</span>
+                          <a href={`https://x.com/${miniBoard.personBelow.x_username}`} target="_blank" rel="noopener noreferrer" className="truncate flex-1 font-medium flex items-center gap-1 hover:underline">
+                            @{miniBoard.personBelow.x_username}
+                            <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="currentColor" className="shrink-0"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
+                          </a>
                           <span className="text-xs text-gray-600 shrink-0 mr-2">{miniBoard.personBelow.score}/100</span>
                           <span className="font-bold shrink-0">${miniBoard.personBelow.money.toLocaleString()}</span>
                         </div>

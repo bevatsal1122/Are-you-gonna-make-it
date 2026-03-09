@@ -46,15 +46,15 @@ export default function LandingScreen({ onStart }: { onStart: () => void }) {
           </h1>
           <p className="text-lg md:text-xl mt-6 font-medium text-gray-700">
             15 brutal questions. Zero sugar coating.<br />
-            Find out how much you&apos;ll earn in the next 5 years.
+            Lambo or public transport? Let&apos;s find out.
           </p>
         </div>
 
         {/* Stickers */}
         <div className="flex flex-wrap justify-center gap-3 mb-8">
           <span className="neo-sticker bg-[#FF6B8A] text-black rotate-[-2deg]">no bs</span>
-          <span className="neo-sticker bg-[#06D6A0] text-black rotate-[1deg]">real talk</span>
-          <span className="neo-sticker bg-[#00BBF9] text-black rotate-[-1deg]">brutally honest</span>
+          <span className="neo-sticker bg-[#06D6A0] text-black rotate-[1deg]">cope harder</span>
+          <span className="neo-sticker bg-[#00BBF9] text-black rotate-[-1deg]">exit liquidity</span>
           <span className="neo-sticker bg-[#9B5DE5] text-black rotate-[2deg]">free forever</span>
         </div>
 
@@ -145,7 +145,7 @@ export default function LandingScreen({ onStart }: { onStart: () => void }) {
 
       {/* Example result card on right */}
       <div className="hidden md:block fixed right-16 top-[66%] -translate-y-1/2 z-40">
-        <div className="neo-card p-6 w-[250px] rotate-2 text-center" style={{ backgroundColor: '#06D6A0' }}>
+        <div className="neo-card p-6 w-[260px] rotate-2 text-center" style={{ backgroundColor: '#06D6A0' }}>
           <div className="text-[10px] font-bold uppercase tracking-widest mb-1 opacity-70">
             In the next 5 years, you&apos;ll make
           </div>
@@ -169,8 +169,9 @@ export default function LandingScreen({ onStart }: { onStart: () => void }) {
           href="https://x.com/bevattt15"
           target="_blank"
           rel="noopener noreferrer"
-          className="neo-btn bg-gray-600 text-white px-3 py-1.5 text-[10px] md:px-4 md:py-2 md:text-sm"
+          className="neo-btn bg-gray-600 text-white px-3 py-1.5 text-[10px] md:px-4 md:py-2 md:text-sm flex items-center gap-1"
         >
+          <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="currentColor" className="shrink-0"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
           @bevattt15
         </a>
       </div>

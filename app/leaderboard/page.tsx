@@ -115,16 +115,19 @@ export default function LeaderboardPage() {
                       )}
                     </div>
                     <div className="flex-1 min-w-0">
+                      <div className={`flex items-center gap-1.5 ${highlight ? 'text-white' : ''}`}>
                       <a
                         href={`https://x.com/${entry.x_username}`}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className={`font-bold text-base md:text-lg hover:underline truncate flex items-center gap-1.5 ${highlight ? 'text-white' : ''}`}
+                        className={`font-bold text-base md:text-lg hover:underline truncate flex items-center gap-1.5`}
                       >
                         @{entry.x_username}
                         <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="currentColor" className="shrink-0"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
-                        {highlight && prefilled && <span className="ml-1 text-[10px] bg-white/30 px-2 py-0.5 rounded-full align-middle">YOU</span>}
+
                       </a>
+                      {highlight && prefilled && <span className="ml-1 text-[10px] bg-white/30 px-2 py-0.5 rounded-full align-middle">YOU</span>}
+                      </div>
                       <span
                         className="neo-sticker text-[10px] mt-1"
                         style={{ backgroundColor: highlight ? 'rgba(255,255,255,0.3)' : (tierColors[entry.tier] || '#ccc') }}
@@ -197,9 +200,9 @@ export default function LeaderboardPage() {
 
         {/* Footer */}
         <div className="text-center mt-8">
-          <p className="text-xs text-gray-400">
+          <p className="text-xs text-gray-600">
             Built by{' '}
-            <a href="https://x.com/bevattt15" target="_blank" rel="noopener noreferrer" className="underline hover:text-gray-600">
+            <a href="https://x.com/bevattt15" target="_blank" rel="noopener noreferrer" className="underline hover:text-gray-800">
               @bevattt15
             </a>
           </p>

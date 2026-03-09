@@ -60,7 +60,7 @@ export default function UsernamePrompt({
 
       <button
         onClick={onSkip}
-        className="text-sm font-medium text-gray-400 hover:text-gray-600 transition-colors py-2 mt-6"
+        className="text-sm font-medium text-gray-600 hover:text-gray-800 transition-colors py-2 mt-6"
       >
         Skip, I&apos;ll stay anonymous
       </button>

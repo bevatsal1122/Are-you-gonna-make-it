@@ -20,7 +20,7 @@ export default function TraitBar({ name, score, emoji, delay }: { name: string; 
         <motion.div
           className="neo-progress-fill"
           style={{
-            backgroundColor: score >= 75 ? '#06D6A0' : score >= 40 ? '#FFD166' : '#FF6B8A',
+            backgroundColor: score >= 70 ? '#06D6A0' : score >= 40 ? '#FFD166' : '#FF6B8A',
           }}
           initial={{ width: 0 }}
           animate={{ width: `${score}%` }}

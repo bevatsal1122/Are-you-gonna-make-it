@@ -265,8 +265,8 @@ export default function ResultsScreen({
 
             <p className="text-xs text-gray-600 text-center mt-2">
               Built by{' '}
-              <a href="https://x.com/bevattt15" target="_blank" rel="noopener noreferrer" className="underline hover:text-gray-600">
-                @bevattt15
+              <a href="https://x.com/vatsaltwt" target="_blank" rel="noopener noreferrer" className="underline hover:text-gray-600">
+                @vatsaltwt
               </a>
             </p>
           </div>

@@ -6,13 +6,9 @@ import { motion, AnimatePresence } from 'framer-motion';
 const stages = [
   { emoji: '🧬', text: 'Analyzing your hustle DNA...', color: '#9B5DE5' },
   { emoji: '📊', text: 'Calculating risk tolerance...', color: '#00BBF9' },
-  { emoji: '🔥', text: 'Checking your grind levels...', color: '#FF6B8A' },
   { emoji: '💰', text: 'Consulting the money gods...', color: '#FFD166' },
-  { emoji: '🧮', text: 'Running the numbers...', color: '#06D6A0' },
   { emoji: '⚖️', text: 'Judging your life choices...', color: '#FF9F1C' },
 ];
-
-const floatingEmojis = ['💵', '💰', '🤑', '💸', '💎', '🏆', '👑', '🚀', '🔥', '⭐', '💲', '🪙', '📈', '🥇', '💳'];
 
 export default function ProcessingScreen() {
   const [stageIndex, setStageIndex] = useState(0);
@@ -41,35 +37,6 @@ export default function ProcessingScreen() {
       exit={{ opacity: 0 }}
       className="min-h-screen flex flex-col items-center justify-center px-4 overflow-hidden relative"
     >
-      {/* Floating background emojis */}
-      <div className="fixed inset-0 pointer-events-none overflow-hidden z-0">
-        {floatingEmojis.map((emoji, i) => (
-          <motion.div
-            key={i}
-            className="absolute text-2xl md:text-3xl"
-            initial={{
-              x: `${(i * 7) % 100}vw`,
-              y: '110vh',
-              opacity: 0.15,
-              rotate: 0,
-            }}
-            animate={{
-              y: '-10vh',
-              rotate: 360,
-              opacity: [0, 0.25, 0.25, 0],
-            }}
-            transition={{
-              duration: 3 + (i % 4),
-              delay: (i * 0.3) % 3,
-              repeat: Infinity,
-              ease: 'linear',
-            }}
-          >
-            {emoji}
-          </motion.div>
-        ))}
-      </div>
-
       <div className="relative z-10 w-full max-w-md">
         {/* Main card */}
         <motion.div
@@ -182,7 +149,7 @@ export default function ProcessingScreen() {
 
         {/* Floating stickers below card */}
         <div className="flex justify-center gap-3 mt-6">
-          {['no cap', 'for real', 'trust'].map((text, i) => (
+          {['no cap', 'exit liquidity?', 'raw mode'].map((text, i) => (
             <motion.span
               key={text}
               className="neo-sticker text-xs"

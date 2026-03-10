@@ -202,8 +202,8 @@ export default function LeaderboardPage() {
         <div className="text-center mt-8">
           <p className="text-xs text-gray-600">
             Built by{' '}
-            <a href="https://x.com/vatsaltwt" target="_blank" rel="noopener noreferrer" className="underline hover:text-gray-800">
-              @vatsaltwt
+            <a href="https://x.com/xvatsall" target="_blank" rel="noopener noreferrer" className="underline hover:text-gray-800">
+              @xvatsall
             </a>
           </p>
         </div>

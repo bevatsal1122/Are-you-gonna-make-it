@@ -153,7 +153,7 @@ export default function ResultsScreen({
             <div className="flex flex-col sm:flex-row gap-4">
               <button
                 onClick={() => {
-                  const text = `I scored ${result.score}/100 on "Are You Gonna Make It?" 💰\n\nPredicted earnings: $${result.money.toLocaleString()} in 5 years\n\nVerdict: ${tierLabels[result.tier]}\n\nThink you can beat me? 👇`;
+                  const text = `I scored ${result.score}/100 on "How Much Will You Make?" 💰\n\nPredicted earnings: $${result.money.toLocaleString()} in 5 years\n\nVerdict: ${tierLabels[result.tier]}\n\nThink you can beat me? 👇`;
                   const url = window.location.href;
                   const tweetUrl = `https://x.com/intent/tweet?text=${encodeURIComponent(text)}&url=${encodeURIComponent(url)}`;
                   window.open(tweetUrl, '_blank');

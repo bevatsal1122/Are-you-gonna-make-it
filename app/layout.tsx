@@ -6,7 +6,7 @@ import { Analytics } from "@vercel/analytics/next"
 const spaceGrotesk = Space_Grotesk({ subsets: ['latin'], weight: ['400', '500', '600', '700'] });
 
 export const metadata: Metadata = {
-  title: 'Are You Gonna Make It?',
+  title: 'How Much Will You Make?',
   description: 'Answer brutal questions. Find out how much you\'ll make in 5 years. No cap.',
 };
 

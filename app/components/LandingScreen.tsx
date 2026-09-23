@@ -15,7 +15,7 @@ export default function LandingScreen({ onStart }: { onStart: () => void }) {
         <div className="animate-marquee whitespace-nowrap flex gap-8">
           {Array.from({ length: 10 }).map((_, i) => (
             <span key={i} className="text-sm font-bold uppercase tracking-widest">
-              ARE YOU GONNA MAKE IT? &bull; FIND OUT NOW &bull; NO CAP &bull; BRUTAL HONESTY &bull;
+              HOW MUCH WILL YOU MAKE? &bull; FIND OUT NOW &bull; NO CAP &bull; BRUTAL HONESTY &bull;
             </span>
           ))}
         </div>
@@ -26,8 +26,8 @@ export default function LandingScreen({ onStart }: { onStart: () => void }) {
         <div className="neo-card bg-white p-8 md:p-12 mb-8">
           <div className="text-6xl mb-4">💰</div>
           <h1 className="text-4xl md:text-6xl font-bold leading-tight mb-4">
-            ARE YOU GONNA<br />
-            <span className="bg-[#FFD166] px-3 py-1 inline-block mt-2 -rotate-1">MAKE IT?</span>
+            HOW MUCH WILL YOU<br />
+            <span className="bg-[#FFD166] px-3 py-1 inline-block mt-2 -rotate-1">MAKE?</span>
           </h1>
           <p className="text-lg md:text-xl mt-6 font-medium text-gray-700">
             15 brutal questions. Zero sugar coating.<br />

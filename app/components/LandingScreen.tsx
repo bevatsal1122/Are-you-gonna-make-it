@@ -1,23 +1,8 @@
 'use client';
 
-import { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
-import Link from 'next/link';
-
-type TopEntry = { x_username: string; money: number; score: number };
 
 export default function LandingScreen({ onStart }: { onStart: () => void }) {
-  const [top3, setTop3] = useState<TopEntry[]>([]);
-
-  useEffect(() => {
-    fetch('/api/leaderboard')
-      .then((r) => r.json())
-      .then((data) => {
-        if (Array.isArray(data)) setTop3(data.slice(0, 3));
-      })
-      .catch(() => {});
-  }, []);
-
   return (
     <motion.div
       initial={{ opacity: 0 }}
@@ -72,32 +57,6 @@ export default function LandingScreen({ onStart }: { onStart: () => void }) {
 
         {/* Mobile top 3 + example result */}
         <div className="md:hidden mt-8 flex flex-col gap-6">
-          {top3.length > 0 && (
-            <div className="neo-card bg-[#E8E8E8] p-5 text-left">
-              <div className="text-sm font-bold uppercase tracking-wide mb-3 flex items-center gap-1.5">
-                <span>🏆</span> Top Players
-              </div>
-              <div className="space-y-2.5">
-                {top3.map((entry, i) => {
-                  const medal = i === 0 ? '🥇' : i === 1 ? '🥈' : '🥉';
-                  return (
-                    <div key={i} className="flex items-center gap-2">
-                      <span className="text-base">{medal}</span>
-                      <a href={`https://x.com/${entry.x_username}`} target="_blank" rel="noopener noreferrer" className="text-base font-bold truncate flex-1 flex items-center gap-1 hover:underline">
-                        @{entry.x_username}
-                        <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="currentColor" className="shrink-0"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
-                      </a>
-                      <span className="text-sm text-gray-500">${entry.money.toLocaleString()}</span>
-                    </div>
-                  );
-                })}
-              </div>
-              <a href="/leaderboard" target="_blank" rel="noopener noreferrer" className="block text-center text-sm font-bold text-[#9B5DE5] mt-3 hover:underline">
-                View All →
-              </a>
-            </div>
-          )}
-
           <div className="neo-card p-5 text-center" style={{ backgroundColor: '#06D6A0' }}>
             <div className="text-xs font-bold uppercase tracking-widest mb-1 opacity-70">
               In 5 years, you&apos;ll make
@@ -111,37 +70,6 @@ export default function LandingScreen({ onStart }: { onStart: () => void }) {
           </div>
         </div>
       </div>
-
-      {/* Top 3 sidebar */}
-      {top3.length > 0 && (
-        <div className="hidden md:block fixed left-16 top-1/2 -translate-y-1/2 z-50">
-          <div className="neo-card bg-[#E8E8E8] p-6 w-[245px] -rotate-2">
-            <div className="text-base font-bold uppercase tracking-wide mb-3 flex items-center gap-1.5">
-              <span>🏆</span> Top Players
-            </div>
-            <div className="space-y-2">
-              {top3.map((entry, i) => {
-                const medal = i === 0 ? '🥇' : i === 1 ? '🥈' : '🥉';
-                return (
-                  <div key={i} className="flex items-center gap-2">
-                    <span className="text-sm">{medal}</span>
-                    <div className="flex-1 min-w-0">
-                      <a href={`https://x.com/${entry.x_username}`} target="_blank" rel="noopener noreferrer" className="text-sm font-bold truncate flex items-center gap-1 hover:underline">
-                        @{entry.x_username}
-                        <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="currentColor" className="shrink-0"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
-                      </a>
-                      <div className="text-xs text-gray-500">${entry.money.toLocaleString()}</div>
-                    </div>
-                  </div>
-                );
-              })}
-            </div>
-            <a href="/leaderboard" target="_blank" rel="noopener noreferrer" className="block text-center text-sm font-bold text-[#9B5DE5] mt-3 hover:underline">
-              View All →
-            </a>
-          </div>
-        </div>
-      )}
 
       {/* Example result card on right */}
       <div className="hidden md:block fixed right-16 top-[66%] -translate-y-1/2 z-40">
@@ -158,21 +86,15 @@ export default function LandingScreen({ onStart }: { onStart: () => void }) {
         </div>
       </div>
 
-      <div className="absolute top-6 right-6 md:top-4 md:right-[15.5rem] z-[60] flex gap-2 md:gap-4">
-        <Link
-          href="/leaderboard"
-          className="neo-btn bg-[#9B5DE5] text-white px-3 py-1.5 text-[10px] md:px-4 md:py-2 md:text-sm"
-        >
-          🏆 Leaderboard
-        </Link>
+      <div className="absolute top-6 right-6 md:top-4 md:right-4 z-[60] flex gap-2 md:gap-4">
         <a
-          href="https://x.com/xvatsall"
+          href="https://x.com/corevats"
           target="_blank"
           rel="noopener noreferrer"
           className="neo-btn bg-gray-600 text-white px-3 py-1.5 text-[10px] md:px-4 md:py-2 md:text-sm flex items-center gap-1"
         >
           <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="currentColor" className="shrink-0"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
-          @xvatsall
+          @corevats
         </a>
       </div>
     </motion.div>

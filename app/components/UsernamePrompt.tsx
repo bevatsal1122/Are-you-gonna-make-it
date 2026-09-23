@@ -27,12 +27,12 @@ export default function UsernamePrompt({
       className="min-h-screen flex flex-col items-center justify-center px-4"
     >
       <div className="neo-card bg-white p-8 md:p-12 max-w-md w-full text-center">
-        <div className="text-5xl mb-4">🏆</div>
+        <div className="text-5xl mb-4">𝕏</div>
         <h2 className="text-2xl md:text-3xl font-bold mb-2">
-          Join the Leaderboard
+          Add your X handle
         </h2>
         <p className="text-gray-600 font-medium mb-8">
-          Drop your X handle to see how you rank against others
+          We&apos;ll show it with your results for this session only.
         </p>
 
         <div className="relative mb-6">

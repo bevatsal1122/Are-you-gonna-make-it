@@ -26,12 +26,13 @@ export default function LandingScreen({ onStart }: { onStart: () => void }) {
         <div className="neo-card bg-white p-8 md:p-12 mb-8">
           <div className="text-6xl mb-4">💰</div>
           <h1 className="text-4xl md:text-6xl font-bold leading-tight mb-4">
-            HOW MUCH WILL YOU<br />
-            <span className="bg-[#FFD166] px-3 py-1 inline-block mt-2 -rotate-1">MAKE?</span>
+            HOW MUCH WILL<br />
+            <span className="bg-[#FFD166] px-3 py-1 inline-block mt-2 -rotate-1">YOU MAKE?</span>
           </h1>
-          <p className="text-lg md:text-xl mt-6 font-medium text-gray-700">
+          <p className="text-base md:text-xl mt-6 font-medium text-gray-700">
             15 brutal questions. Zero sugar coating.<br />
-            Lambo or public transport? Let&apos;s find out.
+            Lambo or public transport? Let&apos;s find out.<br />
+            Jev AI reads your answers and builds your founder profile.
           </p>
         </div>
 

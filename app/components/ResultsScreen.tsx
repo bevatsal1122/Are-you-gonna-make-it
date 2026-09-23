@@ -170,7 +170,7 @@ export default function ResultsScreen({
               </button>
             </div>
 
-            <p className="text-xs text-gray-600 text-center mt-2">
+            <p className="text-xs text-gray-600 text-center mt-6">
               Built by{' '}
               <a href="https://x.com/corevats" target="_blank" rel="noopener noreferrer" className="underline hover:text-gray-600">
                 @corevats
